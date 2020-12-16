@@ -2,7 +2,7 @@ class Yatzy:
 
     @staticmethod
     def chance(*dices): # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
-        score = 0
+        score = 0   # cambio de nombres de variables, total por score, y d's, por dice(dado en inglés).
         for dice in dices:
             score += dice
         return score
