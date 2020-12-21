@@ -1,5 +1,5 @@
 class Yatzy:
-
+    
     @staticmethod
     def chance(*dices): # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
         score = 0   # cambio de nombres de variables, total por score, y d's, por dice(dado en inglés).
@@ -42,38 +42,30 @@ class Yatzy:
                 score += 3
         return score
 
+    @staticmethod
+    def fours(*dices): # refactorizado.
+        score = 0
+        for dice in dices:
+            if (dice == 4):
+                score += 4
+        return score
 
-    def __init__(self, d1, d2, d3, d4, _5):
-        self.dice = [0]*5
-        self.dice[0] = d1
-        self.dice[1] = d2
-        self.dice[2] = d3
-        self.dice[3] = d4
-        self.dice[4] = _5
+    @staticmethod
+    def fives(*dices): # refactorizado.
+        score = 0
+        for dice in dices:
+            if (dice == 5):
+                score += 5
+        return score
 
-    def fours(self):
-        sum = 0
-        for at in range(5):
-            if (self.dice[at] == 4):
-                sum += 4
-        return sum
+    @staticmethod
+    def sixes(*dices): # refactorizado.
+        score = 0
+        for dice in dices:
+            if (dice == 6):
+                score += 6
+        return score
 
-
-    def fives(self):
-        s = 0
-        i = 0
-        for i in range(len(self.dice)):
-            if (self.dice[i] == 5):
-                s = s + 5
-        return s
-
-
-    def sixes(self):
-        sum = 0
-        for at in range(len(self.dice)):
-            if (self.dice[at] == 6):
-                sum = sum + 6
-        return sum
 
     @staticmethod
     def score_pair( d1,  d2,  d3,  d4,  d5):
