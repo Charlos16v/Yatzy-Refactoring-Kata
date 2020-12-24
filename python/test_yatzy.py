@@ -4,22 +4,19 @@ from yatzy import Yatzy
 # available from http://pytest.org/
 
 def test_chance_scores_sum_of_all_dice():
-        expected = 15
-        actual = Yatzy.chance(2,3,4,5,1)
-        assert expected == actual
+        assert 15 == Yatzy.chance(2,3,4,5,1)
         assert 16 == Yatzy.chance(3,3,4,5,1)
+        assert 15 == Yatzy.chance(1,2,3,4,5) # added.
 
 
 def test_yatzy_scores_50():
-        expected = 50
-        actual = Yatzy.yatzy([4,4,4,4,4])
-        assert expected == actual
+        assert 50 == Yatzy.yatzy([4,4,4,4,4])
         assert 50 == Yatzy.yatzy([6,6,6,6,6])
         assert 0 == Yatzy.yatzy([6,6,6,6,3])
 
 
 def test_ones(): # change name "1s" to "ones"
-        assert Yatzy.ones(1,2,3,4,5) == 1
+        assert 1 == Yatzy.ones(1,2,3,4,5)
         assert 2 == Yatzy.ones(1,2,1,4,5)
         assert 0 == Yatzy.ones(6,2,2,4,5)
         assert 4 == Yatzy.ones(1,2,1,1,1)
@@ -37,7 +34,7 @@ def test_threes():
         assert 12 == Yatzy.threes(2,3,3,3,3)
         assert 9 == Yatzy.threes(3,3,3,2,1) # added.
 
-def test_fours_test():
+def test_fours():
         assert 12 == Yatzy.fours(4,4,4,5,5)
         assert 8 == Yatzy.fours(4,4,5,5,5)
         assert 4 == Yatzy.fours(4,5,5,5,5) # added.
