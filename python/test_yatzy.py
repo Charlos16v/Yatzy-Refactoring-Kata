@@ -9,10 +9,10 @@ def test_chance_scores_sum_of_all_dice():
         assert 15 == Yatzy.chance(1,2,3,4,5) # added.
 
 
-def test_yatzy_scores_50():
-        assert 50 == Yatzy.yatzy([4,4,4,4,4])
-        assert 50 == Yatzy.yatzy([6,6,6,6,6])
-        assert 0 == Yatzy.yatzy([6,6,6,6,3])
+def test_yatzy():
+        assert 50 == Yatzy.yatzy(4,4,4,4,4)
+        assert 50 == Yatzy.yatzy(6,6,6,6,6)
+        assert 0 == Yatzy.yatzy(6,6,6,6,3)
 
 
 def test_ones(): # change name "1s" to "ones"
