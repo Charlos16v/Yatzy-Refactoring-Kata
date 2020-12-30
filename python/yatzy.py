@@ -8,14 +8,10 @@ class Yatzy:
         return score
 
     @staticmethod
-    def yatzy(dice):
-        counts = [0]*(len(dice)+1)
-        for die in dice:
-            counts[die-1] += 1
-        for i in range(len(counts)):
-            if counts[i] == 5:
-                return 50
-        return 0
+    def yatzy(*dices):
+        if dices.count(dices[0]) != len(dices): # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+            return 0    # comprueba si todos los valores de entrada son iguales, si estos lo son devuelve 50 de puntuación.
+        return 50
 
     @staticmethod
     def ones(*dices): # refactorizado.
@@ -43,7 +39,7 @@ class Yatzy:
         return score
 
     @staticmethod
-    def fours(*dices): # refactorizado.
+    def fours(*dices): # refactorizado*.
         score = 0
         for dice in dices:
             if (dice == 4):
@@ -51,7 +47,7 @@ class Yatzy:
         return score
 
     @staticmethod
-    def fives(*dices): # refactorizado.
+    def fives(*dices): # refactorizado*.
         score = 0
         for dice in dices:
             if (dice == 5):
@@ -59,7 +55,7 @@ class Yatzy:
         return score
 
     @staticmethod
-    def sixes(*dices): # refactorizado.
+    def sixes(*dices): # refactorizado*.
         score = 0
         for dice in dices:
             if (dice == 6):
