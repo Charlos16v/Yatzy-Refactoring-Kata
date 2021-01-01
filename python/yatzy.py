@@ -68,29 +68,25 @@ class Yatzy:
         PAIR = 2    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
         ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo ordena los valores de entrada de forma descendiente, y guarda la lista ordenada en una variable,
         for dice in ordered_dices:  # Se recorre cada valor de la variable que contiene la tupla ordenada.
-            if ordered_dices.count(dice) >= PAIR: # Si el valor aparece 2 o mas veces se devuelve el valor de esa pareja.
+            if ordered_dices.count(dice) >= 2: # Si el valor aparece 2 o mas veces se devuelve el valor de esa pareja.
                 return dice * PAIR # La constante PAIR, contiene el valor de una pareja (2).
         return 0
 
     @staticmethod
-    def two_pair( d1,  d2,  d3,  d4,  d5):
-        counts = [0]*6
-        counts[d1-1] += 1
-        counts[d2-1] += 1
-        counts[d3-1] += 1
-        counts[d4-1] += 1
-        counts[d5-1] += 1
-        n = 0
-        score = 0
-        for i in range(6):
-            if (counts[6-i-1] >= 2):
-                n = n+1
-                score += (6-i)
-
-        if (n == 2):
-            return score * 2
-        else:
-            return 0
+    def two_pair(*dices):
+        PAIR = 2    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo funciona con una lògica reciclada del metodo anterior (one_pair), pero en este caso añadiendo,
+        score = 0 # una variable que almacena las parejas, si estas llegan a 2 devolvera el respectivo valor
+        pairs = 0
+        last_dice = 0
+        for dice in ordered_dices:
+            if ordered_dices.count(dice) >= 2 and dice != last_dice:
+                pairs += 1
+                last_dice = dice
+                score += PAIR * dice
+            if pairs == 2:
+                return score
+        return 0
 
     @staticmethod
     def four_of_a_kind( _1,  _2,  d3,  d4,  d5):
