@@ -23,7 +23,7 @@ class Yatzy:
 
 
     @staticmethod
-    def twos(*dices): # refactorizado.
+    def twos(*dices): # refactorizado*.
         score = 0
         for dice in dices:
             if (dice ==2):
@@ -31,7 +31,7 @@ class Yatzy:
         return score
 
     @staticmethod
-    def threes(*dices): # refactorizado.
+    def threes(*dices): # refactorizado*.
         score = 0
         for dice in dices:
             if (dice == 3):
@@ -64,7 +64,7 @@ class Yatzy:
 
 
     @staticmethod
-    def score_pair( d1,  d2,  d3,  d4,  d5):
+    def one_pair( d1,  d2,  d3,  d4,  d5):
         counts = [0]*6
         counts[d1-1] += 1
         counts[d2-1] += 1
