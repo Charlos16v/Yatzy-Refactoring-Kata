@@ -64,17 +64,12 @@ class Yatzy:
 
 
     @staticmethod
-    def one_pair( d1,  d2,  d3,  d4,  d5):
-        counts = [0]*6
-        counts[d1-1] += 1
-        counts[d2-1] += 1
-        counts[d3-1] += 1
-        counts[d4-1] += 1
-        counts[d5-1] += 1
-        at = 0
-        for at in range(6):
-            if (counts[6-at-1] == 2):
-                return (6-at)*2
+    def one_pair(*dices):
+        PAIR = 2    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo ordena los valores de entrada de forma descendiente, y guarda la lista ordenada en una variable,
+        for dice in ordered_dices:  # Se recorre cada valor de la variable que contiene la tupla ordenada.
+            if ordered_dices.count(dice) >= PAIR: # Si el valor aparece 2 o mas veces se devuelve el valor de esa pareja.
+                return dice * PAIR # La constante PAIR, contiene el valor de una pareja (2).
         return 0
 
     @staticmethod
