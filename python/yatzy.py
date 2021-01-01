@@ -7,11 +7,13 @@ class Yatzy:
             score += dice
         return score
 
+
     @staticmethod
     def yatzy(*dices):
         if dices.count(dices[0]) != len(dices): # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
             return 0    # comprueba si todos los valores de entrada son iguales, si estos lo son devuelve 50 de puntuación.
         return 50
+
 
     @staticmethod
     def ones(*dices): # refactorizado.
@@ -30,6 +32,7 @@ class Yatzy:
                 score += 2
         return score
 
+
     @staticmethod
     def threes(*dices): # refactorizado*.
         score = 0
@@ -37,6 +40,7 @@ class Yatzy:
             if (dice == 3):
                 score += 3
         return score
+
 
     @staticmethod
     def fours(*dices): # refactorizado*.
@@ -46,6 +50,7 @@ class Yatzy:
                 score += 4
         return score
 
+
     @staticmethod
     def fives(*dices): # refactorizado*.
         score = 0
@@ -53,6 +58,7 @@ class Yatzy:
             if (dice == 5):
                 score += 5
         return score
+
 
     @staticmethod
     def sixes(*dices): # refactorizado*.
@@ -72,6 +78,7 @@ class Yatzy:
                 return dice * PAIR # La constante PAIR, contiene el valor de una pareja (2).
         return 0
 
+
     @staticmethod
     def two_pair(*dices):
         PAIR = 2    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
@@ -88,70 +95,47 @@ class Yatzy:
                 return score
         return 0
 
+
     @staticmethod
-    def four_of_a_kind( _1,  _2,  d3,  d4,  d5):
-        tallies = [0]*6
-        tallies[_1-1] += 1
-        tallies[_2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-        for i in range(6):
-            if (tallies[i] >= 4):
-                return (i+1) * 4
+    def three_of_a_kind(*dices):
+        THREE = 3   # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo básicamente funciona con una lista ordenada de los dados, en la cual comprueba si un dado esta repetido 3 veces,
+        for dice in ordered_dices:  #  si es así devuelve la puntuación, que es la operación de multiplicar de 3 por el valor del dado repetido.
+            if ordered_dices.count(dice) >= THREE:
+                return THREE * dice
         return 0
 
 
     @staticmethod
-    def three_of_a_kind( d1,  d2,  d3,  d4,  d5):
-        t = [0]*6
-        t[d1-1] += 1
-        t[d2-1] += 1
-        t[d3-1] += 1
-        t[d4-1] += 1
-        t[d5-1] += 1
-        for i in range(6):
-            if (t[i] >= 3):
-                return (i+1) * 3
+    def four_of_a_kind(*dices):
+        FOUR = 4    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo básicamente funciona con una lista ordenada de los dados, en la cual comprueba si un dado esta repetido 4 veces,
+        for dice in ordered_dices:  #  si es así devuelve la puntuación, que es la operación de multiplicar de 4 por el valor del dado repetido.
+            if ordered_dices.count(dice) >= FOUR:
+                return FOUR * dice
         return 0
 
 
     @staticmethod
-    def smallStraight( d1,  d2,  d3,  d4,  d5):
-        tallies = [0]*6
-        tallies[d1-1] += 1
-        tallies[d2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-        if (tallies[0] == 1 and
-            tallies[1] == 1 and
-            tallies[2] == 1 and
-            tallies[3] == 1 and
-            tallies[4] == 1):
-            return 15
-        return 0
+    def small_straight(*dices):
+        ordered_dices = sorted(dices, reverse=True)
+        for dice in dices:  # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+            if dices.count(dice) != 1 or ordered_dices[0] > 5:   # El nuevo algoritmo es más eficiente que el anterior, ya que simplemente comprueba que cada valor de entrada se encuentra una única vez y que estos son 1,2,3,4,5.
+                return 0    # si no es asi, devolvera 0 de puntuación.
+        return Yatzy.chance(*dices) # Si no se encuentra ningún dado único, devuelve la suma de todos los valores (chance).
 
 
     @staticmethod
-    def largeStraight( d1,  d2,  d3,  d4,  d5):
-        tallies = [0]*6
-        tallies[d1-1] += 1
-        tallies[d2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-        if (tallies[1] == 1 and
-            tallies[2] == 1 and
-            tallies[3] == 1 and
-            tallies[4] == 1
-            and tallies[5] == 1):
-            return 20
-        return 0
+    def large_straight(*dices):
+        ordered_dices = sorted(dices, reverse=True)
+        for dice in dices:  # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
+            if dices.count(dice) != 1 or ordered_dices[-1] < 2:   # El nuevo algoritmo es más eficiente que el anterior, ya que simplemente comprueba que cada valor de entrada se encuentra una única vez y que estos son 2,3,4,5,6.
+                return 0    # si no es asi, devolvera 0 de puntuación.
+        return Yatzy.chance(*dices) # Si no se encuentra ningún dado único, devuelve la suma de todos los valores (chance).
 
 
     @staticmethod
-    def fullHouse( d1,  d2,  d3,  d4,  d5):
+    def full_house( d1,  d2,  d3,  d4,  d5):
         tallies = []
         _2 = False
         i = 0
