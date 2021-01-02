@@ -72,22 +72,22 @@ class Yatzy:
     @staticmethod
     def one_pair(*dices):
         PAIR = 2    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
-        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo ordena los valores de entrada de forma descendiente, y guarda la lista ordenada en una variable,
+        ordered_dices = sorted(dices, reverse = True) # El nuevo algoritmo ordena los valores de entrada de forma descendiente, y guarda la lista ordenada en una variable,
         for dice in ordered_dices:  # Se recorre cada valor de la variable que contiene la tupla ordenada.
-            if ordered_dices.count(dice) >= 2: # Si el valor aparece 2 o mas veces se devuelve el valor de esa pareja.
-                return dice * PAIR # La constante PAIR, contiene el valor de una pareja (2).
+            if ordered_dices.count(dice) == PAIR: # Si el valor aparece 2 o mas veces se devuelve el valor de esa pareja.
+                return PAIR * dice # La constante PAIR, contiene el valor de una pareja (2).
         return 0
 
 
     @staticmethod
     def two_pair(*dices):
         PAIR = 2    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
-        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo funciona con una lògica reciclada del metodo anterior (one_pair), pero en este caso añadiendo,
+        ordered_dices = sorted(dices, reverse = True) # El nuevo algoritmo funciona con una lògica reciclada del metodo anterior (one_pair), pero en este caso añadiendo,
         score = 0 # una variable que almacena las parejas, si estas llegan a 2 devolvera el respectivo valor
         pairs = 0
         last_dice = 0
         for dice in ordered_dices:
-            if ordered_dices.count(dice) >= 2 and dice != last_dice:
+            if ordered_dices.count(dice) >= PAIR and dice != last_dice:
                 pairs += 1
                 last_dice = dice
                 score += PAIR * dice
@@ -99,7 +99,7 @@ class Yatzy:
     @staticmethod
     def three_of_a_kind(*dices):
         THREE = 3   # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
-        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo básicamente funciona con una lista ordenada de los dados, en la cual comprueba si un dado esta repetido 3 veces,
+        ordered_dices = sorted(dices, reverse = True) # El nuevo algoritmo básicamente funciona con una lista ordenada de los dados, en la cual comprueba si un dado esta repetido 3 veces,
         for dice in ordered_dices:  #  si es así devuelve la puntuación, que es la operación de multiplicar de 3 por el valor del dado repetido.
             if ordered_dices.count(dice) >= THREE:
                 return THREE * dice
@@ -109,7 +109,7 @@ class Yatzy:
     @staticmethod
     def four_of_a_kind(*dices):
         FOUR = 4    # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
-        ordered_dices = sorted(dices, reverse=True) # El nuevo algoritmo básicamente funciona con una lista ordenada de los dados, en la cual comprueba si un dado esta repetido 4 veces,
+        ordered_dices = sorted(dices, reverse = True) # El nuevo algoritmo básicamente funciona con una lista ordenada de los dados, en la cual comprueba si un dado esta repetido 4 veces,
         for dice in ordered_dices:  #  si es así devuelve la puntuación, que es la operación de multiplicar de 4 por el valor del dado repetido.
             if ordered_dices.count(dice) >= FOUR:
                 return FOUR * dice
@@ -118,7 +118,7 @@ class Yatzy:
 
     @staticmethod
     def small_straight(*dices):
-        ordered_dices = sorted(dices, reverse=True)
+        ordered_dices = sorted(dices, reverse = True)
         for dice in dices:  # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
             if dices.count(dice) != 1 or ordered_dices[0] > 5:   # El nuevo algoritmo es más eficiente que el anterior, ya que simplemente comprueba que cada valor de entrada se encuentra una única vez y que estos son 1,2,3,4,5.
                 return 0    # si no es asi, devolvera 0 de puntuación.
@@ -127,7 +127,7 @@ class Yatzy:
 
     @staticmethod
     def large_straight(*dices):
-        ordered_dices = sorted(dices, reverse=True)
+        ordered_dices = sorted(dices, reverse = True)
         for dice in dices:  # refactorizado, permite introducir multiples valores a la función, no esta definida la cantidad de valores de entrada.
             if dices.count(dice) != 1 or ordered_dices[-1] < 2:   # El nuevo algoritmo es más eficiente que el anterior, ya que simplemente comprueba que cada valor de entrada se encuentra una única vez y que estos son 2,3,4,5,6.
                 return 0    # si no es asi, devolvera 0 de puntuación.
@@ -135,34 +135,8 @@ class Yatzy:
 
 
     @staticmethod
-    def full_house( d1,  d2,  d3,  d4,  d5):
-        tallies = []
-        _2 = False
-        i = 0
-        _2_at = 0
-        _3 = False
-        _3_at = 0
-
-        tallies = [0]*6
-        tallies[d1-1] += 1
-        tallies[d2-1] += 1
-        tallies[d3-1] += 1
-        tallies[d4-1] += 1
-        tallies[d5-1] += 1
-
-        for i in range(6):
-            if (tallies[i] == 2):
-                _2 = True
-                _2_at = i+1
-
-
-        for i in range(6):
-            if (tallies[i] == 3):
-                _3 = True
-                _3_at = i+1
-
-
-        if (_2 and _3):
-            return _2_at * 2 + _3_at * 3
+    def full_house(*dices):
+        if Yatzy.one_pair(*dices) and Yatzy.three_of_a_kind(*dices):
+            return Yatzy.one_pair(*dices) + Yatzy.three_of_a_kind(*dices)
         else:
             return 0
